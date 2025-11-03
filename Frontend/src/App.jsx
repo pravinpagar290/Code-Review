@@ -16,10 +16,9 @@ function App() {
     setLoading(true);
     setReview("");
     try {
-      
       setCopyStatus("Copy Review");
 
-      const response = await axios.post("http://localhost:3000/ai/get-review", {
+      const response = await axios.post("https://code-review-7gfl.onrender.com/ai/get-review", {
         code,
       });
       setReview(response.data);
@@ -30,14 +29,13 @@ function App() {
     }
   };
 
-  
   const handleCopy = () => {
     if (review) {
       navigator.clipboard
         .writeText(review)
         .then(() => {
           setCopyStatus("Copied!");
-          
+
           setTimeout(() => {
             setCopyStatus("Copy Review");
           }, 2000);
@@ -54,13 +52,9 @@ function App() {
 
   return (
     <div className="flex min-h-screen">
-      
       <div className="w-5/12 p-6 bg-black text-white flex flex-col border-r border-white">
-        <h1 className="text-2xl font-extrabold mb-4 text-white">
-          Code Input
-        </h1>
+        <h1 className="text-2xl font-extrabold mb-4 text-white">Code Input</h1>
 
-    
         <div className="flex-grow overflow-hidden border border-white rounded-lg shadow-xl bg-gray-950">
           <Editor
             value={code}
@@ -72,7 +66,6 @@ function App() {
           />
         </div>
 
-        
         <div className="mt-4 pt-4 border-t border-gray-800">
           <button
             onClick={reviewCode}
@@ -89,13 +82,11 @@ function App() {
         </div>
       </div>
 
-      
       <div className="w-7/12 p-6 bg-black overflow-y-auto">
         <h1 className="text-2xl font-extrabold mb-4 text-white border-b border-white pb-2">
           Review Output
         </h1>
 
-        
         <div className="mt-4 p-4 rounded-lg bg-gray-950 border-white shadow-inner relative">
           {/* 3. The Copy Button */}
           {review && (
